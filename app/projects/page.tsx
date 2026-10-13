@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllProjects } from "@/lib/projects";
-import { ProjectCard } from "@/components/ProjectCard";
+import { ProjectFilter } from "@/components/ProjectFilter";
 import { ArrowIcon } from "@/components/icons";
 
 export const metadata: Metadata = {
@@ -29,10 +29,8 @@ export default async function ProjectsPage() {
         </h1>
       </header>
 
-      <div className="mt-10 grid gap-4 sm:grid-cols-2">
-        {projects.map((project) => (
-          <ProjectCard key={project.slug} project={project} />
-        ))}
+      <div className="mt-10">
+        <ProjectFilter projects={projects} />
       </div>
     </div>
   );

@@ -34,6 +34,32 @@ body {
   font-family: var(--font-sans);
 }
 
+/* ── Decorative textures (static-export-safe, no images) ─────────────────── */
+/* Soft accent-tinted glow behind the hero. */
+.hero-texture {
+  background: radial-gradient(
+    55% 70% at 85% 0%,
+    color-mix(in srgb, var(--color-accent) 13%, transparent),
+    transparent 70%
+  );
+}
+
+/* Faint technical grid, used behind project-card previews. */
+.bg-grid {
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(in srgb, var(--color-border) 55%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--color-border) 55%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 22px 22px;
+}
+
 /* Visible accent focus ring for keyboard users. */
 :focus-visible {
   outline: 2px solid var(--color-accent);

@@ -80,11 +80,11 @@ export const site: SiteConfig = {
   name: "Brendah Nyanchama",
   role: "Cloud Support Engineer",
   tagline:
-    "Cloud support and IT operations, based in Kenya. Support Engineering intern at AWS, AWS certified (Solutions Architect – Associate, Cloud Practitioner, AI Practitioner), with a year in IT operations at Kenya Airways.",
+    "Cloud support and IT operations, based in Kenya. Support Engineering intern at AWS, AWS certified (Solutions Architect Associate, Cloud Practitioner and AI Practitioner), with a year in IT operations at Kenya Airways.",
   intro:
-    "I troubleshoot cloud and IT infrastructure — AWS compute, networking, storage, databases and identity.",
+    "I troubleshoot cloud and IT infrastructure: AWS compute, networking, storage, databases and identity.",
   bio:
-    "I'm an early-career cloud support engineer based in Kenya. Since April 2026 I've been a Support Engineering Intern at Amazon Web Services, troubleshooting customer issues across compute, networking, storage, databases and identity. Before that, from March 2025 to April 2026, I was an IT Operations Associate at Kenya Airways, where I set up monitoring for 12 business-critical applications, monitored the company's network devices over SNMP, and developed internal web apps. I hold the AWS Certified Solutions Architect – Associate, Cloud Practitioner and AI Practitioner certifications, as well as Cisco CCNA and CCST Cybersecurity. In 2025 I built HelpEdge, a personal IT service management platform with its back-end running on AWS services. I graduated from Kenyatta University in 2025 with a BSc in Information Technology.",
+    "I'm an early-career cloud support engineer based in Kenya. Since April 2026 I've been a Support Engineering Intern at Amazon Web Services, troubleshooting customer issues across compute, networking, storage, databases and identity. Before that, from March 2025 to April 2026, I was an IT Operations Associate at Kenya Airways, where I set up monitoring for 12 business-critical applications, monitored the company's network devices over SNMP, and developed internal web apps. I hold the AWS Certified Solutions Architect Associate, Cloud Practitioner and AI Practitioner certifications, as well as Cisco CCNA and CCST Cybersecurity. In 2025 I built HelpEdge, a personal IT service management platform: a Next.js front-end with a Python/FastAPI back-end on Render, and file storage on AWS S3. I graduated from Kenyatta University in 2025 with a BSc in Information Technology.",
   // Real production URL (GitHub Pages). Host is LOWERCASE — GitHub Pages paths
   // are case-sensitive. Repo: brendahnyanchamaresume.
   url: "https://nyanchamab.github.io/brendahnyanchamaresume",
@@ -150,7 +150,7 @@ export const stats: Stat[] = [] as Stat[];
 // Certifications — AWS first. No personal Credly/verification links (privacy);
 // the UI shows an in-theme provider badge by issuer instead.
 export const certifications: Certification[] = [
-  { name: "AWS Certified Solutions Architect – Associate", issuer: "AWS", year: 2026 },
+  { name: "AWS Certified Solutions Architect, Associate", issuer: "AWS", year: 2026 },
   { name: "AWS Certified Cloud Practitioner", issuer: "AWS", year: 2026 },
   { name: "AWS Certified AI Practitioner", issuer: "AWS", year: 2026 },
   { name: "Cisco Certified Network Associate (CCNA)", issuer: "Cisco", year: 2024 },
@@ -184,8 +184,8 @@ export const experience: ExperienceEntry[] = [
   {
     role: "Member",
     org: "Microsoft Global Community Initiative (MGCI), Kisii region",
-    start: "",
-    end: "",
+    start: "2026",
+    end: "Present",
     bullets: [
       "Help young people in the Kisii region get hands-on experience with Microsoft tools and services.",
     ],

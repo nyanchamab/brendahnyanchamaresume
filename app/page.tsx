@@ -9,15 +9,25 @@ import {
 import { getFeaturedProjects, getAllProjects } from "@/lib/projects";
 import { Sidebar } from "@/components/Sidebar";
 import { MobileHeader } from "@/components/MobileHeader";
+import { Hero } from "@/components/Hero";
 import { Section } from "@/components/Section";
 import { ProjectCard } from "@/components/ProjectCard";
 import { CertCard } from "@/components/CertCard";
 import { SkillBar } from "@/components/SkillBar";
+import { SocialLinks } from "@/components/SocialLinks";
 import { ArrowIcon, GitHubIcon, LinkedInIcon } from "@/components/icons";
 
 export default async function Home() {
   const featured = await getFeaturedProjects();
-  const projects = featured.length > 0 ? featured : await getAllProjects();
+  const all = await getAllProjects();
+  // Cap the home page so the Projects section stays tight as the project list
+  // grows. Prefer featured; fall back to most-recent. "View all" carries the rest.
+  const HOME_PROJECT_LIMIT = 4;
+  const projects = (featured.length > 0 ? featured : all).slice(
+    0,
+    HOME_PROJECT_LIMIT
+  );
+  const hasMoreProjects = all.length > projects.length;
 
   return (
     <div className="min-h-screen">
@@ -26,6 +36,8 @@ export default async function Home() {
         <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-16">
           {/* Content column (left, scrolls) */}
           <div className="order-2 py-16 lg:order-1 lg:py-24">
+            <Hero />
+
             {/* 01 About */}
             <Section id="about" number="01" title="About">
               <p className="max-w-2xl text-base leading-relaxed text-muted">
@@ -40,13 +52,15 @@ export default async function Home() {
                   <ProjectCard key={project.slug} project={project} />
                 ))}
               </div>
-              <Link
-                href="/projects"
-                className="group mt-6 inline-flex items-center gap-2 text-sm font-medium text-accent"
-              >
-                View all
-                <ArrowIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transform-none" />
-              </Link>
+              {hasMoreProjects && (
+                <Link
+                  href="/projects"
+                  className="group mt-6 inline-flex items-center gap-2 text-sm font-medium text-accent"
+                >
+                  View all {all.length} projects
+                  <ArrowIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transform-none" />
+                </Link>
+              )}
             </Section>
 
             {/* 03 Skills */}
@@ -91,7 +105,7 @@ export default async function Home() {
                       {hasDates && (
                         <p className="mt-1 font-mono text-xs text-muted">
                           {entry.start}
-                          {entry.start && entry.end ? " — " : ""}
+                          {entry.start && entry.end ? " to " : ""}
                           {entry.end}
                         </p>
                       )}
@@ -126,7 +140,7 @@ export default async function Home() {
                     {" · "}
                   </span>
                   <span className="font-mono text-xs text-muted">
-                    {education.start}–{education.end}
+                    {education.start} to {education.end}
                   </span>
                 </p>
                 {education.note && (
@@ -147,8 +161,8 @@ export default async function Home() {
             {/* 06 Contact */}
             <Section id="contact" number="06" title="Contact">
               <p className="max-w-xl text-base leading-relaxed text-muted">
-                {site.availability.label}. The fastest way to reach me is email —
-                I&apos;m happy to talk about cloud support and IT operations work.
+                {site.availability.label}. The fastest way to reach me is email,
+                and I&apos;m happy to talk about cloud support and IT operations work.
               </p>
               <div className="mt-6 flex flex-wrap items-center gap-4">
                 <a
@@ -164,7 +178,7 @@ export default async function Home() {
                   className="inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-accent"
                 >
                   <GitHubIcon className="h-4 w-4" />
-                  GitHub
+                  <span className="sr-only">GitHub</span>
                 </a>
                 <a
                   href={site.social.linkedin}
@@ -173,14 +187,21 @@ export default async function Home() {
                   className="inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-accent"
                 >
                   <LinkedInIcon className="h-4 w-4" />
-                  LinkedIn
+                  <span className="sr-only">LinkedIn</span>
                 </a>
               </div>
             </Section>
 
-            <footer className="mt-16 border-t border-border pt-6">
-              <p className="text-xs text-faint">
-                Designed &amp; built by {site.name}
+            <footer className="mt-20 border-t border-border pt-8">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <p className="font-semibold text-foreground">{site.name}</p>
+                  <p className="mt-1 text-sm text-muted">{site.role} · Kenya</p>
+                </div>
+                <SocialLinks />
+              </div>
+              <p className="mt-6 text-xs text-faint">
+                Designed &amp; built by {site.name} · Next.js &amp; Tailwind CSS
               </p>
             </footer>
           </div>

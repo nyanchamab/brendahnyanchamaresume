@@ -1,11 +1,14 @@
 ---
 title: HelpEdge
 description: A web-based IT service desk for raising, assigning and resolving support tickets, with SLAs, role-based access and reporting.
-date: 2025-01-01
+date: 2025-08-01
 tags:
   - Next.js
   - React
-  - Vercel
+  - FastAPI
+  - Python
+  - Render
+  - MongoDB
   - AWS S3
 featured: true
 demo: https://helpedge.vercel.app
@@ -13,10 +16,6 @@ demo: https://helpedge.vercel.app
 
 <!--
   Personal project built in 2025, separate from the AWS internship.
-  Parts marked [TO FILL] are intentionally left blank until confirmed —
-  do not publish guesses. Fill in: exact AWS compute service, back-end
-  framework, database, and (if the text-classification feature ships) the
-  base model and framework. Then add those to the `tags` above.
 -->
 
 ## Problem
@@ -37,14 +36,24 @@ system supports:
 - Reporting so the team can see volume and turnaround at a glance.
 
 The front end is built with Next.js and React and deployed on Vercel. The
-back-end runs on AWS, with file/attachment storage on Amazon S3.
-<!-- [TO FILL] name the AWS compute service (e.g. EC2 / Lambda / Elastic Beanstalk),
-     the back-end framework, and the database, then describe them in one line here. -->
+back-end is a Python/FastAPI service hosted on Render, with the data stored in
+MongoDB Atlas. File and attachment storage is on Amazon S3.
 
 ## Outcome
 
 HelpEdge is a working, deployed platform that takes a support request from
-"raised" to "resolved" with ownership, SLAs and reporting in one place.
-<!-- [TO FILL] add concrete, honest outcomes once you can state them: e.g.
-     number of ticket states, what the reporting view shows, or anything you
-     measured. Do not invent testimonials or usage numbers. -->
+"raised" to "resolved" in one place, with clear ownership at every step. In its
+current form it provides:
+
+- **A defined ticket lifecycle:** each ticket moves through four states, Open to
+  In progress to Resolved to Closed, so its status is always clear.
+- **Role-based access with seven roles:** from service desk agent and technician
+  up to administrator, so each person sees the views their job needs.
+- **SLA tracking:** time-to-respond and time-to-resolve are tracked against each
+  ticket, so urgent work is visible and nothing is quietly missed.
+- **A reporting view:** the team can see ticket volume and turnaround at a glance.
+
+Building it end to end (a Next.js front-end, a FastAPI service on Render, a
+MongoDB Atlas database and S3 for file storage) taught me how the pieces of a
+service desk fit together, and how much a clear ticket workflow and good
+reporting help a support team stay on top of its work.
