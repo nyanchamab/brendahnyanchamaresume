@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Brendah Nyanchama — Portfolio
 
-## Getting Started
+A static-exported Next.js 16 personal site: a two-column, dark navy + teal
+portfolio for a cloud support engineer. Built with React 19, Tailwind v4, and a
+markdown-driven projects section. Package manager: **bun**.
 
-First, run the development server:
+## Customization
+
+Everything you'd normally edit lives in three places:
+
+- **`data/site.ts`** — the single source of truth for all personal content: name,
+  role, tagline, bio, availability, social links, skills, certifications,
+  experience, education, and the section nav. Edit values here; the UI renders them.
+  (Note: empty arrays must be written `[] as T[]`. `stats` is intentionally empty.)
+- **`content/projects/*.md`** — one markdown file per project. The filename is the
+  URL slug. Frontmatter requires `title`, `description`, and `date` (optional:
+  `tags`, `featured`, `repo`, `demo`). A missing required field fails the build on
+  purpose. The markdown body renders to HTML on the project detail page.
+- **`app/globals.css`** — the design tokens (`@theme`): colors and fonts. The ten
+  color tokens define the dark navy + teal palette used across the site.
+
+## Develop
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+bun install
+bun run dev     # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Build
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+bun run build          # outputs the static site to ./out
+bunx serve out         # preview the exported site
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deploy
 
-## Learn More
+### GitHub Pages (project site, served under a subpath)
 
-To learn more about Next.js, take a look at the following resources:
+Build with the base path set to the repo name so asset URLs resolve under the
+subpath:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+NEXT_PUBLIC_BASE_PATH=/brendahnyanchamaresume bun run build
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Repo: **brendahnyanchamaresume**
+- Live URL: **https://nyanchamab.github.io/brendahnyanchamaresume/**
+- `public/.nojekyll` must stay in place so GitHub Pages serves the `_next/`
+  directory (Jekyll ignores folders starting with `_` otherwise).
+- A GitHub Actions workflow (`.github/workflows/deploy.yml`) builds and publishes
+  the `out/` directory to Pages.
 
-## Deploy on Vercel
+### Vercel / root deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Deploy with **no** `NEXT_PUBLIC_BASE_PATH` set — the site is then served from the
+root and asset URLs point at `/_next/`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Notes
+
+- Static export: `output: "export"`, `trailingSlash: true`, images unoptimized.
+- System fonts only (no `next/font/google`).
+- All motion has `prefers-reduced-motion` fallbacks.
